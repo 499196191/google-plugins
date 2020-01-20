@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="./static/jquery.min.js"></script>
+    <script type="text/javascript" src="./static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="./static/vue.js"></script>
+    <style>
+        #container {
+            background-color: aliceblue;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .form-box {
+            width: 500px;
+            height: 500px;
+            background-color: #ccc;
+            position: relative;
+        }
+        .save-btn{
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="form-box">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">账号</label>
+                    <input class="form-control" id="exampleInputEmail1" placeholder="name" v-model="formItem.name"
+                        @change=nameChange>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">密码</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" v-model="formItem.pwd"
+                        placeholder="Password" @change=pwdChange>
+                </div>
+
+                <div class="radio">
+                    <p>通信类型</p>
+                    <label v-for="(item,index) in telType" :key="index">
+                        <input type="radio" id="telType" name="telType" :value="item.value" v-model="formItem.telType"
+                            @change="telTypeChange"> {{item.name}}
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <p>案件类型</p>
+                    <label v-for="(item,index) in caseType" :key="index">
+                        <input type="checkbox" id="caseType" name="caseType" :value="item.value" v-model="formItem.caseType"
+                            @change="caseTypeChange">
+                        {{item.name}}
+                    </label>
+                </div>
+                <div class="select">
+                    <p>xxxx</p>
+                    <select name="xxxType" id="xxxType" v-model="formItem.xxxType" @change="xxxTypeChange">
+                        <option :value="item.value" v-for="(item,index) in xxxType" :key="index">{{item.name}}</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-default save-btn" @click="save">提交</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        //在vm内部可以通过this直接调用data和methods里面的方法和属性
+        //vm内部的this指向的是vm这个实例
+
+        // 创建vue实例对象vm
+        const vm = new Vue({
+            el: "#container", //指定vue控制区域
+            data: { //数据部分
+                formItem: {
+                    name: '',
+                    pwd: "",
+                    telType: "",
+                    pwdChange: "",
+                    caseType: [],
+                    xxxType: "杀人"
+
+                },
+                telType: [{
+                    name: "联通",
+                    value: "联通"
+                }, {
+                    name: "电信",
+                    value: "电信"
+                }, {
+                    name: "移动",
+                    value: "移动"
+                }],
+                caseType: [{
+                    name: "杀人",
+                    value: "杀人"
+                }, {
+                    name: "放火",
+                    value: "放火"
+                }, {
+                    name: "抢劫",
+                    value: "抢劫"
+                }, {
+                    name: "盗窃",
+                    value: "盗窃"
+                }, {
+                    name: "全部",
+                    value: "全部"
+                }],
+                xxxType: [{
+                    name: "杀人",
+                    value: "杀人"
+                }, {
+                    name: "放火",
+                    value: "放火"
+                }, {
+                    name: "抢劫",
+                    value: "抢劫"
+                }, {
+                    name: "盗窃",
+                    value: "盗窃"
+                }, {
+                    name: "全部",
+                    value: "全部"
+                }]
+            },
+            methods: { //函数部分
+                nameChange() {
+                    console.log(this.formItem.name);
+                },
+                pwdChange() {
+                    console.log(this.formItem.pwd);
+                },
+                telTypeChange() {
+                    console.log(this.formItem.telType);
+                },
+                caseTypeChange() {
+                    console.log(this.formItem.caseType);
+                },
+                xxxTypeChange() {
+                    console.log(this.formItem.xxxType);
+                },
+                save() {
+                    console.log(this.formItem);
+                }
+
+            }
+
+
+        })
+    </script>
+</body>
+
+</html>
